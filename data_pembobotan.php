@@ -69,8 +69,7 @@
 									$sqlJML_R = "SELECT * FROM tbl_pembobotan pb 
 											where pb.parameterY = $id_jml_parameterY";
 									$resultJML_R = mysqli_query($conn, $sqlJML_R);
-									while($jumlah = mysqli_fetch_array($resultJML_R)){
-									
+									while($jumlah = mysqli_fetch_array($resultJML_R)){									
 									$total = $total+$jumlah['bobot'];
 									}
 									

@@ -15,36 +15,77 @@
   </head>
   <body>
   	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
-				<?php include "data_parameter.php"?>
-				 <!-- Button trigger modal parameter-->
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalParameter">
-				  Tambah Parameter
-				</button>
-
-			</div>	
-			
-			<div class="col-md-9">
-			<?php include "data_pembobotan.php"?>
-				<!-- Button trigger modal pembobotan-->
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPembobotan">
-				  Tambah Pembobotan
-				</button>
+		<div class="row" >
+			<div class="col-md-12">
+				<h1 align="center">DATA PENDAFTAR </h1>	
+				<?php include "ranking.php"?>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" style="margin-bottom:50px;">
 			<div class="col-md-12">
+				<h2> </h2>	
+				<?php include "ranking_tertulis.php"?>
+			</div>
+		</div>
+		<div class="row" style="margin-bottom:50px;" align="center">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPendaftar" >
+				Tambah Pendaftar
+			</button>		
+		</div>
+		<div class="row" style="margin-bottom:50px;" >
+			<div class="col-md-12">
+				<h2> NORMALISASI DATA PENDAFTAR</h2>	
+				<?php include "normalisasi.php"?>
+			</div>
+		</div>
+		<div class="row" style="margin-bottom:150px">
+			<div class="col-md-12">
+			<h2>RANKING </h2>
+				<?php include "perankingan.php"?>
+			</div>
+		</div>
+
+	<h1 align="center"> DATA KRITERIA</h1>
+		<div class="row" >	
+			<div class="col-md-3">
+				<?php include "data_parameter.php"?>
+			</div>		
+			<div class="col-md-9">
+				<?php include "data_pembobotan.php"?>	
+			</div>
+		</div>
+		<div class="row" style="margin-bottom:50px;">
+			<div class="col-md-3">	
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalParameter" >
+					Tambah Parameter
+				</button>
+			</div>	
+			<div class="col-md-3">	
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPembobotan" >
+					Tambah Pembobotan
+				</button>
+			</div>		
+		</div>
+		<div class="row" style="margin-bottom:50px;">
+			<div class="col-md-12">
+				<h2>RATA-RATA BOBOT </h2>	
 				<?php include "data_rata_bobot.php"?>
 			</div>
 		</div>
+		<div class="row" style="margin-bottom:50px; display:none">
+			<div class="col-md-12">
+			<h2>KONSISTENSI </h2>
+				<?php include "data_konsistensi.php"?>
+			</div>
+		</div>
+
 
 	<!-- Modal Parameter-->
 	<div class="modal fade" id="ModalParameter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 		  <div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLongTitle">Modal Parameter</h5>
+			<h5 class="modal-title" id="exampleModalLongTitle">Modal Kriteria</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
@@ -52,7 +93,7 @@
 		  <div class="modal-body">
 			<form method="POST" action="input_parameter.php">
 			  <div class="form-group">
-				<label for="exampleFormControlInput1">Nama Parameter</label>
+				<label for="exampleFormControlInput1">Nama Kriteria</label>
 				<input type="text" name="parameter" class="form-control" id="exampleFormControlInput1" placeholder="Krisna Arynasta">
 			  </div>
 		  </div>
@@ -79,7 +120,7 @@
 		  <div class="modal-body">
 			<form method="POST" action="input_pembobotan.php">
 			  <div class="form-group">
-				<label for="exampleFormControlSelect1">Aset Kendaraan</label>
+				<label for="exampleFormControlSelect1">Kriteria</label>
 				<select class="form-control" id="parameterX" name="parameterX">
 					<?php
 						$sql1 = "SELECT * FROM tbl_parameter";
@@ -96,7 +137,7 @@
 				</select>
 			  </div>		  
 			  <div class="form-group">
-				<label for="exampleFormControlSelect1">Aset Kendaraan</label>
+				<label for="exampleFormControlSelect1">Kriteria</label>
 				<select class="form-control" id="parameterY" name="parameterY">
 					<?php
 						$sql1 = "SELECT * FROM tbl_parameter ";
@@ -128,39 +169,58 @@
 	</div>
 	
 	
+	
+	<!-- Modal pendaftar-->
+	<div class="modal fade" id="ModalPendaftar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLongTitle">Modal Pendaftar</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			<form method="POST" action="pemrosesan.php">
+			  <div class="form-group">
+				<label for="exampleFormControlInput1">Nama Pendaftar</label>
+				<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Krisna Arynasta" name="nama">
+			  </div>
+			  <div class="form-group">
+				<label for="exampleFormControlInput1">Jumlah Penghasilan Pendaftar</label>
+				<input type="text" class="form-control" id="exampleFormControlInput1" value="0" name="penghasilan">
+			  </div>		  
+			  <div class="form-group">
+				<label for="exampleFormControlInput1">Jumlah Tanggungan Pendaftar</label>
+				<input type="number" class="form-control" id="exampleFormControlInput1" value="0" name="tanggungan">
+			  </div>
+			  <div class="form-group">
+				<label for="exampleFormControlSelect1">Kondisi Rumah</label>
+				<select class="form-control" id="exampleFormControlSelect1" name="rumah">
+				  <option value="5">Tidak Layak</option>
+				  <option value="3">Cukup Layak Huni</option>
+				  <option value="1">Layak</option>
+				</select>
+			  </div>
+			  <div class="form-group">
+				<label for="exampleFormControlSelect1">Aset Kendaraan</label>
+				<select class="form-control" id="exampleFormControlSelect1" name="aset">
+				  <option value="5">Tidak Memiliki</option>
+				  <option value="3">Motor</option>
+				  <option value="1">Mobil</option>
+				</select>
+			  </div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="sumbit" class="btn btn-primary">Save changes</button>
+			</form>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
   
-
-		<form>
-		  <div class="form-group">
-			<label for="exampleFormControlInput1">Nama Pendaftar</label>
-			<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Krisna Arynasta">
-		  </div>
-		  <div class="form-group">
-			<label for="exampleFormControlInput1">Jumlah Tanggungan Pendaftar</label>
-			<input type="number" class="form-control" id="exampleFormControlInput1" value="0">
-		  </div>
-		  <div class="form-group">
-			<label for="exampleFormControlSelect1">Kondisi Rumah</label>
-			<select class="form-control" id="exampleFormControlSelect1">
-			  <option>Tidak Layak</option>
-			  <option>Layak</option>
-			  <option>Cukup Layak Huni</option>
-			</select>
-		  </div>
-		  <div class="form-group">
-			<label for="exampleFormControlSelect1">Aset Kendaraan</label>
-			<select class="form-control" id="exampleFormControlSelect1">
-			  <option>Tidak Memiliki</option>
-			  <option>Motor</option>
-			  <option>Mobil</option>
-			</select>
-		  </div>
-		  <div class="form-group">
-			<label for="exampleFormControlTextarea1">Keterangan</label>
-			<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-		  </div>
-		  <input type="submit" class="btn btn-primary">
-		</form>
 	</div>	
 	
 	

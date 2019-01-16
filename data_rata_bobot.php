@@ -33,6 +33,7 @@
 							<?php 	
 								$sql2 = "SELECT * FROM tbl_parameter";
 								$resultY = mysqli_query($conn, $sql2);
+								$jumlah_baris = 0;
 								while($rowY = mysqli_fetch_array($resultY)) {
 									
 									$id_parameterY = $rowY['id_parameter'];	
@@ -43,12 +44,27 @@
 											where pb.parameterX = $id_parameterX && pb.parameterY = $id_parameterY ";
 									$resultBbt = mysqli_query($conn, $sql3);
 									$bbt = mysqli_fetch_array($resultBbt); 	
-									if (!empty($bbt)) {											
-										echo "<td>".$bbt['bobot']."</td>";  										
+									if (!empty($bbt)) {	
+									
+										$sql4 = "SELECT sum(bobot) as jml FROM `tbl_pembobotan` WHERE parameterY=$id_parameterY GROUP BY (parameterY)"; 
+										$resultJml = mysqli_query($conn, $sql4);
+										$Jml = mysqli_fetch_array($resultJml); 
+											
+										$jumlah_parameter=$bbt['bobot']/$Jml['jml'];
+										$jumlah_baris = $jumlah_baris+$jumlah_parameter;	
+										
+										echo "<td>".$jumlah_parameter."</td>";  										
 									}else{
 											echo "<td></td>"; 	
 										}	
 								}
+								$sql5 = "SELECT * FROM tbl_parameter";
+								$resultCount = mysqli_query($conn, $sql5);
+								$ratarataCount=mysqli_num_rows($resultCount);
+								$ratarata=$jumlah_baris/$ratarataCount;
+
+								echo "<td>".$jumlah_baris."</td>";  
+								echo "<td>".$ratarata."</td>";  
 								
 								
 						?>

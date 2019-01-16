@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2019 at 03:47 AM
+-- Generation Time: Jan 15, 2019 at 09:57 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.0
 
@@ -78,6 +78,63 @@ INSERT INTO `tbl_pembobotan` (`id_pembobotan`, `parameterX`, `parameterY`, `bobo
 (15, 6, 3, 0.142857),
 (16, 6, 5, 0.333333);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_pendaftar`
+--
+
+CREATE TABLE `tbl_pendaftar` (
+  `id_pendaftar` int(11) NOT NULL,
+  `nama_pendaftar` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_pendaftar`
+--
+
+INSERT INTO `tbl_pendaftar` (`id_pendaftar`, `nama_pendaftar`) VALUES
+(2, 'krisna'),
+(3, 'dika'),
+(4, 'widi'),
+(5, 'surya');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ranking`
+--
+
+CREATE TABLE `tbl_ranking` (
+  `id_ranking` int(11) NOT NULL,
+  `id_pendaftar` int(11) NOT NULL,
+  `id_parameter` int(11) NOT NULL,
+  `bobot_pendaftar` int(11) NOT NULL,
+  `tertulis` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_ranking`
+--
+
+INSERT INTO `tbl_ranking` (`id_ranking`, `id_pendaftar`, `id_parameter`, `bobot_pendaftar`, `tertulis`) VALUES
+(65, 2, 3, 3, '2100000'),
+(66, 2, 4, 3, '4'),
+(67, 2, 5, 1, 'layak'),
+(68, 2, 6, 3, 'mobil'),
+(69, 3, 3, 4, '1700000'),
+(70, 3, 4, 3, '3'),
+(71, 3, 5, 3, 'cukup layak huni'),
+(72, 3, 6, 3, 'motor'),
+(73, 4, 3, 3, '2300000'),
+(74, 4, 4, 5, '5'),
+(75, 4, 5, 3, 'tidak layak'),
+(76, 4, 6, 3, 'tidak memiliki'),
+(77, 5, 3, 4, '1300000'),
+(78, 5, 4, 1, '1'),
+(79, 5, 5, 3, 'layak'),
+(80, 5, 6, 3, 'mobil');
+
 --
 -- Indexes for dumped tables
 --
@@ -97,6 +154,20 @@ ALTER TABLE `tbl_pembobotan`
   ADD KEY `parameterY` (`parameterY`);
 
 --
+-- Indexes for table `tbl_pendaftar`
+--
+ALTER TABLE `tbl_pendaftar`
+  ADD PRIMARY KEY (`id_pendaftar`);
+
+--
+-- Indexes for table `tbl_ranking`
+--
+ALTER TABLE `tbl_ranking`
+  ADD PRIMARY KEY (`id_ranking`),
+  ADD KEY `id_pendaftar` (`id_pendaftar`,`id_parameter`),
+  ADD KEY `id_parameter` (`id_parameter`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -104,13 +175,25 @@ ALTER TABLE `tbl_pembobotan`
 -- AUTO_INCREMENT for table `tbl_parameter`
 --
 ALTER TABLE `tbl_parameter`
-  MODIFY `id_parameter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_parameter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_pembobotan`
 --
 ALTER TABLE `tbl_pembobotan`
   MODIFY `id_pembobotan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `tbl_pendaftar`
+--
+ALTER TABLE `tbl_pendaftar`
+  MODIFY `id_pendaftar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbl_ranking`
+--
+ALTER TABLE `tbl_ranking`
+  MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- Constraints for dumped tables
@@ -122,6 +205,13 @@ ALTER TABLE `tbl_pembobotan`
 ALTER TABLE `tbl_pembobotan`
   ADD CONSTRAINT `tbl_pembobotan_ibfk_1` FOREIGN KEY (`parameterX`) REFERENCES `tbl_parameter` (`id_parameter`),
   ADD CONSTRAINT `tbl_pembobotan_ibfk_2` FOREIGN KEY (`parameterY`) REFERENCES `tbl_parameter` (`id_parameter`);
+
+--
+-- Constraints for table `tbl_ranking`
+--
+ALTER TABLE `tbl_ranking`
+  ADD CONSTRAINT `tbl_ranking_ibfk_1` FOREIGN KEY (`id_pendaftar`) REFERENCES `tbl_pendaftar` (`id_pendaftar`),
+  ADD CONSTRAINT `tbl_ranking_ibfk_2` FOREIGN KEY (`id_parameter`) REFERENCES `tbl_parameter` (`id_parameter`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
